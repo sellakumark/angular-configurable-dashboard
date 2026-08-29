@@ -1,0 +1,12 @@
+/node_modules
+/dist
+/.angular
+.DS_Store
+*.log
+*.swp
+*.swo
+*~
+.vscode
+.idea
+.env
+.env.local
