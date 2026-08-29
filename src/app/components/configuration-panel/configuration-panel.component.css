@@ -1,0 +1,247 @@
+.configuration-panel {
+  background: white;
+  border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+}
+
+.dark-theme .configuration-panel {
+  background: #2a2a2a;
+  border-bottom-color: rgba(102, 126, 234, 0.3);
+}
+
+.panel-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+/* Section Styles */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #667eea;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 0.75rem;
+}
+
+/* Add Widget Form */
+.add-widget-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.dark-theme .form-group label {
+  color: #e0e0e0;
+}
+
+.select-input {
+  padding: 0.75rem;
+  border: 2px solid rgba(102, 126, 234, 0.3);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  background: white;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dark-theme .select-input {
+  background: #333;
+  color: #e0e0e0;
+  border-color: rgba(102, 126, 234, 0.5);
+}
+
+.select-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+/* Buttons */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Info List */
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 0.25rem;
+  border-left: 3px solid #667eea;
+}
+
+.dark-theme .info-item {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.info-label {
+  font-weight: 600;
+  color: #667eea;
+  font-size: 0.9rem;
+}
+
+.info-value {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #333;
+  text-align: right;
+  word-break: break-word;
+}
+
+.dark-theme .info-value {
+  color: #e0e0e0;
+}
+
+/* Templates List */
+.templates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.template-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(102, 126, 234, 0.05);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dark-theme .template-card {
+  background: rgba(102, 126, 234, 0.1);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.template-card:hover {
+  background: rgba(102, 126, 234, 0.1);
+  border-color: #667eea;
+  transform: translateX(4px);
+}
+
+.template-icon {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.template-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.template-info h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.dark-theme .template-info h4 {
+  color: #e0e0e0;
+}
+
+.template-info p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.dark-theme .template-info p {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.template-info small {
+  font-size: 0.75rem;
+  color: #667eea;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .panel-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .configuration-panel {
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .configuration-panel {
+    padding: 1rem 0.5rem;
+  }
+
+  .section-title {
+    font-size: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

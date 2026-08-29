@@ -1,0 +1,90 @@
+<div class="widget" [class.editing]="isEditing">
+  <!-- Widget Header -->
+  <div class="widget-header">
+    <div class="header-title" *ngIf="!isEditing">
+      <span class="widget-icon">📦</span>
+      <h3>{{ widget.title }}</h3>
+    </div>
+    <input 
+      *ngIf="isEditing"
+      type="text" 
+      class="title-input"
+      [value]="widget.title"
+      (change)="updateTitle($event.target.value)"
+      placeholder="Widget title">
+    
+    <div class="header-actions">
+      <button 
+        class="icon-btn" 
+        (click)="refreshWidget()"
+        title="Refresh"
+        [disabled]="isEditing">
+        🔄
+      </button>
+      <button 
+        class="icon-btn" 
+        (click)="onToggle()"
+        [title]="widget.isVisible ? 'Hide' : 'Show'"
+        *ngIf="isEditing">
+        {{ widget.isVisible ? '👁️' : '🙈' }}
+      </button>
+      <button 
+        class="icon-btn danger" 
+        (click)="onRemove()"
+        title="Remove"
+        *ngIf="isEditing">
+        🗑️
+      </button>
+    </div>
+  </div>
+
+  <!-- Widget Content -->
+  <div class="widget-content">
+    <div class="content-display" *ngIf="!isEditing">
+      <p class="content-value">{{ getWidgetContent() }}</p>
+      <p class="content-type">{{ widget.type }}</p>
+    </div>
+
+    <!-- Editing Controls -->
+    <div class="editing-panel" *ngIf="isEditing">
+      <!-- Size Control -->
+      <div class="control-group">
+        <label>Size:</label>
+        <select 
+          [value]="widget.size"
+          (change)="changeSize($event.target.value)">
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+        </select>
+      </div>
+
+      <!-- Refresh Interval -->
+      <div class="control-group">
+        <label>Refresh (seconds):</label>
+        <input 
+          type="number" 
+          [value]="widget.refreshInterval"
+          (change)="dashboardService.updateWidget(widget.id, {refreshInterval: +$event.target.value})">
+      </div>
+
+      <!-- Config Panel -->
+      <div class="config-panel">
+        <h4>Configuration</h4>
+        <div *ngFor="let key of (widget.config | keyvalue)" class="config-item">
+          <label>{{ key.key }}:</label>
+          <input 
+            type="text" 
+            [value]="key.value"
+            (change)="updateConfig(key.key, $event.target.value)">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Widget Footer -->
+  <div class="widget-footer" *ngIf="isEditing">
+    <small>ID: {{ widget.id | slice:0:8 }}...</small>
+    <small>Position: {{ widget.position }}</small>
+  </div>
+</div>

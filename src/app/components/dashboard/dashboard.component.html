@@ -1,0 +1,93 @@
+<div [ngClass]="{
+  'light-theme': theme() === 'light',
+  'dark-theme': theme() === 'dark'
+}" class="dashboard-container">
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="header-content">
+      <h1>📊 Configurable Dashboard</h1>
+      <div class="header-actions">
+        <button 
+          (click)="toggleEditingMode()" 
+          [class.active]="isEditing()"
+          class="btn btn-edit">
+          {{ isEditing() ? '✓ Done Editing' : '✏️ Edit' }}
+        </button>
+        <button (click)="toggleTheme()" class="btn btn-theme">
+          {{ theme() === 'light' ? '🌙 Dark' : '☀️ Light' }}
+        </button>
+        <button (click)="exportConfig()" class="btn btn-export">
+          📥 Export
+        </button>
+        <button (click)="resetDashboard()" class="btn btn-reset">
+          🔄 Reset
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Configuration Panel -->
+  <app-configuration-panel *ngIf="isEditing()"></app-configuration-panel>
+
+  <!-- Main Content -->
+  <main class="dashboard-main">
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-label">Total Widgets:</span>
+        <span class="stat-value">{{ widgetCount() }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Visible:</span>
+        <span class="stat-value">{{ visibleWidgetCount() }}</span>
+      </div>
+    </div>
+
+    <!-- Widget Grid -->
+    <div class="widgets-grid">
+      <!-- Empty State -->
+      <div *ngIf="visibleWidgets().length === 0" class="empty-state">
+        <div class="empty-content">
+          <p class="empty-icon">📭</p>
+          <p class="empty-text">No widgets yet</p>
+          <p class="empty-hint" *ngIf="!isEditing()">
+            Click "Edit" to add widgets to your dashboard
+          </p>
+        </div>
+      </div>
+
+      <!-- Widgets List (Draggable when editing) -->
+      <div 
+        *ngIf="visibleWidgets().length > 0"
+        [class.draggable-list]="isEditing()"
+        cdkDropList
+        #widgetList="cdkDropList"
+        [cdkDropListData]="visibleWidgets()"
+        (cdkDropListDropped)="drop($event)"
+        class="widgets-list">
+        
+        <div 
+          *ngFor="let widget of visibleWidgets()"
+          cdkDrag
+          [class.editing-mode]="isEditing()"
+          class="widget-wrapper"
+          [ngClass]="'widget-size-' + widget.size">
+          
+          <app-widget 
+            [widget]="widget"
+            [isEditing]="isEditing()"
+            (remove)="removeWidget(widget.id)"
+            (toggle)="toggleWidgetVisibility(widget.id)">
+          </app-widget>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="dashboard-footer">
+    <p class="footer-text">
+      Angular 20 Dashboard with Signals | Last updated: {{ dashboardService.dashboardConfig().lastUpdated | date: 'short' }}
+    </p>
+  </footer>
+</div>

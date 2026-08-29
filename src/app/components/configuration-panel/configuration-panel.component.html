@@ -1,0 +1,58 @@
+<div class="configuration-panel">
+  <div class="panel-container">
+    <!-- Add Widget Section -->
+    <section class="section">
+      <h3 class="section-title">➕ Add Widget</h3>
+      <div class="add-widget-form">
+        <div class="form-group">
+          <label for="widget-type">Widget Type:</label>
+          <select 
+            id="widget-type"
+            [(ngModel)]="selectedWidgetType"
+            class="select-input">
+            <option *ngFor="let template of availableTemplates()" [value]="template.type">
+              {{ template.title }} - {{ template.description }}
+            </option>
+          </select>
+        </div>
+        <button (click)="addWidget()" class="btn btn-primary">
+          Add Widget
+        </button>
+      </div>
+    </section>
+
+    <!-- Dashboard Info Section -->
+    <section class="section">
+      <h3 class="section-title">📊 Dashboard Info</h3>
+      <div class="info-list">
+        <div class="info-item">
+          <span class="info-label">Total Widgets:</span>
+          <span class="info-value">{{ getAllWidgets().length }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Dashboard ID:</span>
+          <span class="info-value">{{ dashboardService.dashboardConfig().id }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Last Updated:</span>
+          <span class="info-value">{{ dashboardService.dashboardConfig().lastUpdated | date: 'short' }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Available Templates Section -->
+    <section class="section">
+      <h3 class="section-title">📋 Widget Templates</h3>
+      <div class="templates-list">
+        <div *ngFor="let template of availableTemplates()" class="template-card">
+          <div class="template-icon">📦</div>
+          <div class="template-info">
+            <h4>{{ template.title }}</h4>
+            <p>{{ template.description }}</p>
+            <small>Size: {{ template.defaultSize }}</small>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
